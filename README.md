@@ -9,3 +9,7 @@ There's also a FaceID login module for Linux: [Howdy](https://github.com/boltgol
 ## Architecture
 
 COMING SOON
+
+## Prerequisites
+
+- Install `libpam0g-dev` on Ubuntu/Debian or `pam-devel` on Fedora/CentOS.
