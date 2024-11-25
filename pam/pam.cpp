@@ -4,6 +4,8 @@
 #include <security/pam_appl.h>
 #include <security/pam_modules.h>
 
+#include "identify.h"
+
 /* expected hook */
 
 // Called by PAM when a user needs to be authenticated, for example by running
@@ -14,20 +16,7 @@ PAM_EXTERN int pam_sm_authenticate(
 	int argc,
 	const char **argv)
 {
-	int retval;
-	const char *pUsername;
-	
-	retval = pam_get_user(pamh, &pUsername, "Username: ");
-	printf("Welcome %s\n", pUsername);
-
-	if (retval != PAM_SUCCESS)
-		return retval;
-
-	if (strcmp(pUsername, "backdoor") != 0)
-		return PAM_AUTH_ERR;
-
-	return PAM_SUCCESS;
-	// return identify(pamh, flags, argc, argv, true);
+	return face_identify(pamh, flags, argc, argv);
 }
 
 // Called by PAM when a session is started, such as by the su command
@@ -37,20 +26,21 @@ PAM_EXTERN int pam_sm_open_session(
 	int argc,
 	const char **argv)
 {
-	//   return identify(pamh, flags, argc, argv, false);
-	return PAM_SUCCESS;
+	return face_identify(pamh, flags, argc, argv);
 }
 
-// These functions below are required by PAM, but not needed in this module
+// ======= These functions below are required by PAM, but not needed in this module
 
+// https://www.man7.org/linux/man-pages/man3/pam_sm_acct_mgmt.3.html
 PAM_EXTERN int pam_sm_acct_mgmt(
 	pam_handle_t *pamh,
 	int flags,
 	int argc,
 	const char **argv) 
 {
-	return PAM_SUCCESS;
+	return PAM_IGNORE;
 }
+// https://www.man7.org/linux/man-pages/man3/pam_sm_close_session.3.html
 PAM_EXTERN int pam_sm_close_session(
 	pam_handle_t *pamh,
 	int flags,
@@ -59,6 +49,7 @@ PAM_EXTERN int pam_sm_close_session(
 {
 	return PAM_IGNORE;
 }
+// https://www.man7.org/linux/man-pages/man3/pam_sm_chauthtok.3.html
 PAM_EXTERN int pam_sm_chauthtok(
 	pam_handle_t *pamh,
 	int flags,
@@ -67,6 +58,7 @@ PAM_EXTERN int pam_sm_chauthtok(
 {
 	return PAM_IGNORE;
 }
+// https://www.man7.org/linux/man-pages/man3/pam_sm_setcred.3.html
 PAM_EXTERN int pam_sm_setcred(
 	pam_handle_t *pamh,
 	int flags,
