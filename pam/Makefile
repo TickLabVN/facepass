@@ -1,19 +1,21 @@
 .PHONY: build test clean pam.o identify.o
 
-GPP=g++ -fPIC -fno-stack-protector
+CXX=g++ -fPIC
+
+# build: pam.o
+# 	sudo ld -x --shared pam.o -o /usr/lib/x86_64-linux-gnu/security/pam_facepass.so
 
 build: pam.o identify.o
-	$(GPP) -shared -o facepass.o pam.o identify.o
-	# sudo ld -x --shared -o /usr/lib/x86_64-linux-gnu/security/facepass.so facepass.o
+	ld -r pam.o identify.o -o facepass.o
+	sudo ld -x --shared facepass.o -o /usr/lib/x86_64-linux-gnu/security/pam_facepass.so
 
 pam.o: 
-	$(GPP) -c pam.cpp
+	$(CXX) -c pam.cc -o pam.o
 identify.o:
-	$(GPP) -c identify.cpp 
-
+	$(CXX) -c identify.cc -o identify.o
 
 test:
-	g++ -o pam_test test.cpp -lpam -lpam_misc
+	g++ -o pam_test test.cc -lpam -lpam_misc
 clean:
-	rm -f *.o
+	rm -f *.o *.so
 	

