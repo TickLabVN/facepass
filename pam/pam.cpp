@@ -3,7 +3,6 @@
 #include <string.h>
 #include <security/pam_appl.h>
 #include <security/pam_modules.h>
-
 #include "identify.h"
 
 /* expected hook */
@@ -36,16 +35,16 @@ PAM_EXTERN int pam_sm_acct_mgmt(
 	pam_handle_t *pamh,
 	int flags,
 	int argc,
-	const char **argv) 
+	const char **argv)
 {
-	return PAM_IGNORE;
+	return PAM_SUCCESS;
 }
 // https://www.man7.org/linux/man-pages/man3/pam_sm_close_session.3.html
 PAM_EXTERN int pam_sm_close_session(
 	pam_handle_t *pamh,
 	int flags,
 	int argc,
-	const char **argv) 
+	const char **argv)
 {
 	return PAM_IGNORE;
 }
@@ -54,7 +53,7 @@ PAM_EXTERN int pam_sm_chauthtok(
 	pam_handle_t *pamh,
 	int flags,
 	int argc,
-	const char **argv) 
+	const char **argv)
 {
 	return PAM_IGNORE;
 }
@@ -63,7 +62,7 @@ PAM_EXTERN int pam_sm_setcred(
 	pam_handle_t *pamh,
 	int flags,
 	int argc,
-	const char **argv) 
+	const char **argv)
 {
 	return PAM_IGNORE;
 }
