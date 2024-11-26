@@ -1,7 +1,7 @@
 .PHONY: build test clean pam.o identify.o
 
-CXX=g++ -fPIC
-CXXFLAGS=-I/usr/include/opencv4
+CXX=g++ -fPIC -std=c++17
+CXXFLAGS=`pkg-config opencv4 --cflags --libs`
 
 build: pam.o identify.o
 	$(CXX) -shared pam.o identify.o -o facepass.o

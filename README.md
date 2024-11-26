@@ -12,4 +12,6 @@ COMING SOON
 
 ## Prerequisites
 
-- Install `libpam0g-dev` on Ubuntu/Debian or `pam-devel` on Fedora/CentOS.
+Need to install the following packages:
+- `libopencv-dev`
+- `libpam0g-dev` (Ubuntu/Debian) or `pam-devel` (Fedora/CentOS)
