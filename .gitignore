@@ -2,3 +2,8 @@
 *.o
 *.so
 dump
+*.cmake
+face-pass
+CMakeFiles
+.env
+*CMakeCache.txt
