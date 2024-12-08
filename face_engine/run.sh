@@ -1,3 +1,2 @@
-./face-pass \
-    ./images/thai2.jpg \
-    ./images/thai3.jpg
+#!/bin/bash
+./face-pass ./input/thai2.jpg ./input/thai3.jpg

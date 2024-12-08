@@ -1,2 +1,3 @@
-cmake -DCMAKE_PREFIX_PATH=/home/thaitran24/Personal/Source/FacePass/libtorch
+#!/bin/bash
+cmake -DCMAKE_PREFIX_PATH="$(pwd)"/libtorch
 cmake --build .
