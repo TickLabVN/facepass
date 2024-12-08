@@ -9,9 +9,13 @@ include_directories( ${OpenCV_INCLUDE_DIRS} )
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${TORCH_CXX_FLAGS} ${OpenCV_CFLAGS_OTHER}")
 
 set(PROJECT_SOURCES
+    face_det/utils.h
+    face_det/utils.cpp
+    face_det/face_det.h
+    face_det/face_det.cpp
+    face_reg/face_reg.h
+    face_reg/face_reg.cpp
     main.cpp
-    inference.h
-    inference.cpp
 )
 
 add_executable(face-pass ${PROJECT_SOURCES})

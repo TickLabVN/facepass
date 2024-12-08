@@ -129,29 +129,77 @@ face-pass/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/face-pass.dir/build.make CMakeFiles/face-pass.dir/build
 .PHONY : face-pass/fast
 
-inference.o: inference.cpp.o
-.PHONY : inference.o
+face_det/face_det.o: face_det/face_det.cpp.o
+.PHONY : face_det/face_det.o
 
 # target to build an object file
-inference.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/face-pass.dir/build.make CMakeFiles/face-pass.dir/inference.cpp.o
-.PHONY : inference.cpp.o
+face_det/face_det.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/face-pass.dir/build.make CMakeFiles/face-pass.dir/face_det/face_det.cpp.o
+.PHONY : face_det/face_det.cpp.o
 
-inference.i: inference.cpp.i
-.PHONY : inference.i
+face_det/face_det.i: face_det/face_det.cpp.i
+.PHONY : face_det/face_det.i
 
 # target to preprocess a source file
-inference.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/face-pass.dir/build.make CMakeFiles/face-pass.dir/inference.cpp.i
-.PHONY : inference.cpp.i
+face_det/face_det.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/face-pass.dir/build.make CMakeFiles/face-pass.dir/face_det/face_det.cpp.i
+.PHONY : face_det/face_det.cpp.i
 
-inference.s: inference.cpp.s
-.PHONY : inference.s
+face_det/face_det.s: face_det/face_det.cpp.s
+.PHONY : face_det/face_det.s
 
 # target to generate assembly for a file
-inference.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/face-pass.dir/build.make CMakeFiles/face-pass.dir/inference.cpp.s
-.PHONY : inference.cpp.s
+face_det/face_det.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/face-pass.dir/build.make CMakeFiles/face-pass.dir/face_det/face_det.cpp.s
+.PHONY : face_det/face_det.cpp.s
+
+face_det/utils.o: face_det/utils.cpp.o
+.PHONY : face_det/utils.o
+
+# target to build an object file
+face_det/utils.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/face-pass.dir/build.make CMakeFiles/face-pass.dir/face_det/utils.cpp.o
+.PHONY : face_det/utils.cpp.o
+
+face_det/utils.i: face_det/utils.cpp.i
+.PHONY : face_det/utils.i
+
+# target to preprocess a source file
+face_det/utils.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/face-pass.dir/build.make CMakeFiles/face-pass.dir/face_det/utils.cpp.i
+.PHONY : face_det/utils.cpp.i
+
+face_det/utils.s: face_det/utils.cpp.s
+.PHONY : face_det/utils.s
+
+# target to generate assembly for a file
+face_det/utils.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/face-pass.dir/build.make CMakeFiles/face-pass.dir/face_det/utils.cpp.s
+.PHONY : face_det/utils.cpp.s
+
+face_reg/face_reg.o: face_reg/face_reg.cpp.o
+.PHONY : face_reg/face_reg.o
+
+# target to build an object file
+face_reg/face_reg.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/face-pass.dir/build.make CMakeFiles/face-pass.dir/face_reg/face_reg.cpp.o
+.PHONY : face_reg/face_reg.cpp.o
+
+face_reg/face_reg.i: face_reg/face_reg.cpp.i
+.PHONY : face_reg/face_reg.i
+
+# target to preprocess a source file
+face_reg/face_reg.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/face-pass.dir/build.make CMakeFiles/face-pass.dir/face_reg/face_reg.cpp.i
+.PHONY : face_reg/face_reg.cpp.i
+
+face_reg/face_reg.s: face_reg/face_reg.cpp.s
+.PHONY : face_reg/face_reg.s
+
+# target to generate assembly for a file
+face_reg/face_reg.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/face-pass.dir/build.make CMakeFiles/face-pass.dir/face_reg/face_reg.cpp.s
+.PHONY : face_reg/face_reg.cpp.s
 
 main.o: main.cpp.o
 .PHONY : main.o
@@ -186,9 +234,15 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... face-pass"
-	@echo "... inference.o"
-	@echo "... inference.i"
-	@echo "... inference.s"
+	@echo "... face_det/face_det.o"
+	@echo "... face_det/face_det.i"
+	@echo "... face_det/face_det.s"
+	@echo "... face_det/utils.o"
+	@echo "... face_det/utils.i"
+	@echo "... face_det/utils.s"
+	@echo "... face_reg/face_reg.o"
+	@echo "... face_reg/face_reg.i"
+	@echo "... face_reg/face_reg.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
