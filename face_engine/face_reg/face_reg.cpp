@@ -7,7 +7,7 @@ torch::Tensor to_tensor(const cv::Mat& img) {
 	return img_tensor;
 };
 
-torch::Tensor norm1lize(const torch::Tensor& input, const std::vector<float>& mean, const std::vector<float>& std) {
+torch::Tensor normalize(const torch::Tensor& input, const std::vector<float>& mean, const std::vector<float>& std) {
     TORCH_CHECK(input.size(0) == mean.size(), "Mean size must match number of channels");
     TORCH_CHECK(input.size(0) == std.size(), "Std size must match number of channels");
 
@@ -49,7 +49,7 @@ torch::Tensor FaceRecognition::preprocess(cv::Mat& input_image) {
     std::vector<float> std({0.5, 0.5, 0.5});
 	
     torch::Tensor img_tensor = to_tensor(resize_img);
-    torch::Tensor norm_img_tensor = norm1lize(img_tensor, mean, std);
+    torch::Tensor norm_img_tensor = normalize(img_tensor, mean, std);
 
     return norm_img_tensor;
 }
