@@ -1,15 +1,9 @@
 #include <stdio.h>
 #include <string.h>
-
-enum Command
-{
-    ADD = 0,
-    REMOVE = 1,
-};
+#include "add_face.h"
 
 int main(int argc, char **argv)
 {
-    Command cmd;
     if (argc != 2)
     {
         printf("Invalid number of arguments.\n");
@@ -17,14 +11,23 @@ int main(int argc, char **argv)
     }
 
     if (strcmp(argv[1], "add") == 0)
-        cmd = ADD;
-    else if (strcmp(argv[1], "remove") == 0)
-        cmd = REMOVE;
-    else
     {
-        printf("Invalid command.\n");
-        return 1;
+        cv::Mat face;
+        int result = capture_face(face);
+        if (result != 0)
+        {
+            printf("Failed to capture face.\n");
+            return 1;
+        }
+
+        cv::imwrite("face.jpg", face);
+        return 0;
     }
-    
-    return 0;
+    else if (strcmp(argv[1], "remove") == 0)
+    {
+        return 0;
+    }
+
+    printf("Invalid command.\n");
+    return 1;
 }

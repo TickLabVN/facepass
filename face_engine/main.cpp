@@ -111,10 +111,6 @@ int main(int argc, char **argv) {
     // Face reg model
     FaceRecognition model_face_reg("./weights/edgeface_s_gamma_05_ts.pt");
     
-    // // Anti spoof model
-    // cv::dnn::Net model_anti_spoof;
-    // model_anti_spoof = cv::dnn::readNetFromONNX("./weights/mobilenet_v3_small.onnx");
-
     // Face1 Inference
     std::vector<Detection> det_images;
     cv::Mat image = cv::imread(argv[1]);
@@ -123,16 +119,6 @@ int main(int argc, char **argv) {
     cv::Mat face1 = det_images[0].image;
     std::string file_name = std::string("result1.jpg");
     cv::imwrite(file_name, face1);
-
-    // int spoof = inference_anti_spoof(model_anti_spoof, face1);
-    // string spoof_result;
-    // if (spoof == 0) {
-    //     spoof_result = "good";
-    // }
-    // else {
-    //     spoof_result = "spoof";
-    // }
-    // std::cout << "Face1 spoofing result: " << spoof << " - mean " << spoof_result;
 
     std::cout << "Face1 saved at results0.jpg\n";
     std::cout << "\n\n";
@@ -145,15 +131,6 @@ int main(int argc, char **argv) {
     file_name = std::string("result2.jpg");
     cv::imwrite(file_name, face2);
     
-    // spoof = inference_anti_spoof(model_anti_spoof, face2);
-    // if (spoof == 0) {
-    //     spoof_result = "good";
-    // }
-    // else {
-    //     spoof_result = "spoof";
-    // }
-    // std::cout << "Face2 spoofing result: " << spoof << " - mean " << spoof_result;
-
     std::cout << "Face2 saved at results0.jpg\n";
     std::cout << "\n\n";
 
