@@ -2,3 +2,12 @@
 *.o
 *.so
 dump
+*.cmake
+**/face-pass
+CMakeFiles
+.env
+*CMakeCache.txt
+**/libtorch
+**/inputs
+**/outputs
+build
