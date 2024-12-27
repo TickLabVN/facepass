@@ -1,4 +1,4 @@
-#include "face_det.h"
+#include "face_detection.h"
 #include "utils.h"
 
 FaceDetection::FaceDetection(
@@ -17,9 +17,9 @@ FaceDetection::FaceDetection(
     this->classes = classes;
     if (this->cuda) this->device = torch::Device(torch::kCUDA);
     else this->device = torch::Device(torch::kCPU);
+
     this->load_model(ckpt);
 }
-
 
 void FaceDetection::load_model(const std::string& ckpt)
 {
@@ -28,7 +28,6 @@ void FaceDetection::load_model(const std::string& ckpt)
     this->model.eval();
     this->model.to(this->device, torch::kFloat32);
 }
-
 
 std::vector<Detection> FaceDetection::inference(cv::Mat& image) {
     // Preprocess

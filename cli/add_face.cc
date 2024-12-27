@@ -3,7 +3,6 @@
 int capture_face(cv::Mat &frame)
 {
     cv::VideoCapture camera(0, cv::CAP_V4L2); // in linux check $ ls /dev/video0
-
     int retries = 0;
     while (!camera.isOpened())
     {
@@ -17,8 +16,8 @@ int capture_face(cv::Mat &frame)
         sleep(1);
         retries++;
     }
-    printf("Camera opened.\n");
 
+    printf("Camera opened.\n");
     while (1)
     {
         // capture the next frame from the webcam
@@ -30,4 +29,11 @@ int capture_face(cv::Mat &frame)
             break;
     }
     return 0;
+}
+
+cv::Mat detect_face(cv::Mat &frame) {
+    FaceDetection detector("./weights/yolov11n-face.torchscript");
+    std::vector<Detection> detectedImages = detector.inference(frame);
+    cv::Mat face = detectedImages[0].image;
+    return face;
 }

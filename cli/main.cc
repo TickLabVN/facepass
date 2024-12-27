@@ -12,21 +12,19 @@ int main(int argc, char **argv)
 
     if (strcmp(argv[1], "add") == 0)
     {
-        cv::Mat face;
-        int result = capture_face(face);
+        cv::Mat screenshot;
+        int result = capture_face(screenshot);
         if (result != 0)
         {
             printf("Failed to capture face.\n");
             return 1;
         }
-
+        cv::Mat face = detect_face(screenshot);
         cv::imwrite("face.jpg", face);
         return 0;
     }
     else if (strcmp(argv[1], "remove") == 0)
-    {
         return 0;
-    }
 
     printf("Invalid command.\n");
     return 1;

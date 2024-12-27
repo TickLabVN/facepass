@@ -1,15 +1,5 @@
 #include "utils.h"
 
-// OpenCV
-#include <opencv2/core.hpp>
-#include <opencv2/opencv.hpp>
-#include <opencv2/imgproc.hpp>
-#include <opencv2/imgcodecs.hpp>
-
-// Torch
-#include <torch/torch.h>
-#include <torch/script.h>
-
 using torch::indexing::Slice;
 using torch::indexing::None;
 

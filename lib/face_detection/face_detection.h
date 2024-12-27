@@ -40,7 +40,6 @@ public:
         this->color = color;
         this->image = image;
     };
-    
 };
 
 class FaceDetection {
