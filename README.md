@@ -10,14 +10,19 @@ There's also a FaceID login module for Linux: [Howdy](https://github.com/boltgol
 
 COMING SOON
 
-## Prerequisites
+## How to compile
 
-Need to install the following packages:
-- `libopencv-dev`
-- `libpam0g-dev` (Ubuntu/Debian) or `pam-devel` (Fedora/CentOS)
-- `libtorch` (PyTorch C++ API)
+1. Install dependencies
     ```bash
-    cd include/
-    wget https://download.pytorch.org/libtorch/nightly/cpu/libtorch-cxx11-abi-static-without-deps-2.2.0.dev20231031+cpu.zip
-    unzip libtorch-cxx11-abi-static-without-deps-2.2.0.dev20231031+cpu.zip
+    sudo apt install libopencv-dev libpam0g-dev
+    mkdir -p external && cd external
+    wget -O libtorch.zip https://download.pytorch.org/libtorch/nightly/cpu/libtorch-cxx11-abi-shared-without-deps-2.2.0.dev20231031%2Bcpu.zip
+    unzip libtorch.zip
+    cd ..
+    ```
+2. Compile
+    ```bash
+    mkdir -p build && cd build
+    cmake ..
+    make
     ```
