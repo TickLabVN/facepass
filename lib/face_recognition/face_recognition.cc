@@ -1,4 +1,4 @@
-#include "face_reg.h"
+#include "face_recognition.h"
 
 torch::Tensor to_tensor(const cv::Mat& img) {
 	torch::Tensor img_tensor = torch::from_blob(img.data, {img.rows, img.cols, 3}, torch::kUInt8);

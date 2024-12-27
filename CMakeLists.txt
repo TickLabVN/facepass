@@ -13,6 +13,9 @@ find_package(Torch REQUIRED)
 find_package(OpenCV REQUIRED)
 
 add_subdirectory(lib/face_detection)
-set(FaceDetection_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/lib/face_detection)
+add_subdirectory(lib/face_recognition)
+add_subdirectory(lib/pam)
+# set(FaceDetection_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/lib/face_detection)
+# set(FaceRecognition_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/lib/face_recognition)
 add_subdirectory(cli)
 
