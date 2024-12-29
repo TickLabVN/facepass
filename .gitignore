@@ -3,7 +3,13 @@
 *.so
 dump
 *.cmake
-face-pass
+**/face-pass
 CMakeFiles
 .env
 *CMakeCache.txt
+**/libtorch
+**/inputs
+**/outputs
+build
+**.jpg
+face_engine/
