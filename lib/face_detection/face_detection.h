@@ -40,6 +40,14 @@ public:
         this->color = color;
         this->image = image;
     };
+
+    bool operator>(const Detection& obj) const {
+        return (this->box.width * this->box.height) > (obj.box.width * obj.box.height);
+    };
+
+    bool operator<(const Detection& obj) const {
+        return (this->box.width * this->box.height) < (obj.box.width * obj.box.height);
+    };
 };
 
 class FaceDetection {

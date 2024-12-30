@@ -11,3 +11,5 @@ CMakeFiles
 **/inputs
 **/outputs
 build
+**.jpg
+face_engine/

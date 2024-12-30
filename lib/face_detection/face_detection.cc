@@ -1,5 +1,6 @@
 #include "face_detection.h"
 #include "utils.h"
+#include <algorithm>
 
 FaceDetection::FaceDetection(
     const std::string &ckpt, 
@@ -62,6 +63,8 @@ std::vector<Detection> FaceDetection::inference(cv::Mat& image) {
         Detection det(cls, std::string("face"), conf, box, xyxy_box, crop_face, color);
         results.push_back(det);
     }
+
+    std::sort(results.begin(), results.end(), std::greater<Detection>());
     return results;
 }
 
