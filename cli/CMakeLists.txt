@@ -1,7 +1,8 @@
 set(CLI ${PROJECT_NAME})
 add_executable(${CLI} main.cc
-    add_face.h
     add_face.cc
+    config.cc
+    remove_face.cc
 )
 target_include_directories(${CLI} PRIVATE 
     ${OpenCV_INCLUDE_DIRS}

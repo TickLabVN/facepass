@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "add_face.h"
+#include "remove_face.h"
 #include "CLI/App.hpp"
 #include "CLI/CLI.hpp"
 
@@ -14,8 +15,7 @@ int main(int argc, char **argv)
         return add_face();
     });
     remove->callback([&]() {
-        printf("Remove face.\n");
-        return 1;
+        return remove_face();
     });
     CLI11_PARSE(app, argc, argv);
 

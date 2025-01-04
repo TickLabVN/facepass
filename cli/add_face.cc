@@ -33,7 +33,8 @@ int capture_face(cv::Mat &frame)
 
 cv::Mat detect_face(cv::Mat &frame)
 {
-    FaceDetection detector("./weights/yolov11n-face.torchscript");
+    const string model = get_config_path() + "/models/yolov11n-face.torchscript";
+    FaceDetection detector(model);
     std::vector<Detection> detectedImages = detector.inference(frame);
     cv::Mat face = detectedImages[0].image;
     return face;
@@ -41,6 +42,9 @@ cv::Mat detect_face(cv::Mat &frame)
 
 int add_face()
 {
+    string faceImagePath = get_config_path();
+    faceImagePath.append("/faces/face.jpg");
+
     cv::Mat screenshot;
     int result = capture_face(screenshot);
     if (result != 0)
@@ -49,6 +53,7 @@ int add_face()
         return 1;
     }
     cv::Mat face = detect_face(screenshot);
-    cv::imwrite("face.jpg", face);
+    cv::imwrite(faceImagePath, face);
+
     return 0;
 }
