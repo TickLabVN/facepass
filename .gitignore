@@ -1,15 +1,6 @@
 .vscode
-*.o
-*.so
 dump
-*.cmake
-**/face-pass
-CMakeFiles
-.env
-*CMakeCache.txt
-**/libtorch
+external
 **/inputs
 **/outputs
 build
-**.jpg
-face_engine/

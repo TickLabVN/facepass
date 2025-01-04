@@ -3,7 +3,6 @@ add_executable(${CLI} main.cc
     add_face.h
     add_face.cc
 )
-
 target_include_directories(${CLI} PRIVATE 
     ${OpenCV_INCLUDE_DIRS}
     ${TORCH_INCLUDE_DIRS}

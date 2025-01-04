@@ -19,4 +19,4 @@ add_subdirectory(lib/pam)
 # set(FaceDetection_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/lib/face_detection)
 # set(FaceRecognition_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/lib/face_recognition)
 add_subdirectory(cli)
-
+add_subdirectory(test/face_engine)
