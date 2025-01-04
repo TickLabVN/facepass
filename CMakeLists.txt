@@ -11,6 +11,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${TORCH_CXX_FLAGS} ${OpenCV_CFLAGS_OTHER
 SET(Torch_DIR external/libtorch/share/cmake/Torch)
 find_package(Torch REQUIRED)
 find_package(OpenCV REQUIRED)
+find_package(CLI11 CONFIG REQUIRED)
 
 add_subdirectory(lib/face_detection)
 add_subdirectory(lib/face_recognition)

@@ -8,5 +8,6 @@
 
 int capture_face(cv::Mat &);
 cv::Mat detect_face(cv::Mat &);
+int add_face();
 
 #endif // __ADD_FACE_H__

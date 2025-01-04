@@ -9,7 +9,8 @@ target_include_directories(${CLI} PRIVATE
     ${TORCH_INCLUDE_DIRS}
     ${FaceDetection_INCLUDE_DIRS}
 )
-target_link_libraries(${CLI} 
+target_link_libraries(${CLI} PRIVATE
     ${OpenCV_LIBS} ${TORCH_LIBRARIES}
     face_detection
+    CLI11::CLI11
 )
