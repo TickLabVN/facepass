@@ -1,4 +1,4 @@
-#include "config.h"
+#include "face_config.h"
 
 string get_config_path()
 {

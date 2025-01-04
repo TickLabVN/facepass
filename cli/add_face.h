@@ -6,7 +6,7 @@
 #include <unistd.h>
 #include <string>
 #include "face_detection.h"
-#include "config.h"
+#include "face_config.h"
 
 int capture_face(cv::Mat &);
 cv::Mat detect_face(cv::Mat &);
