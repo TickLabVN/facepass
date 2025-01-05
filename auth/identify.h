@@ -12,7 +12,6 @@
 #include "face_recognition.h"
 #include "face_config.h"
 
-using namespace std;
 int scanFace();
 int face_identify(pam_handle_t *pamh, int flags, int argc,
                   const char **argv);

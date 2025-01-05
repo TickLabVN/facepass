@@ -3,8 +3,7 @@
 
 #include <string>
 #include "face_config.h"
-using namespace std;
 
-int remove_face();
+int remove_face(const string &);
 
 #endif // __FACEPASS_REMOVE_FACE_H__

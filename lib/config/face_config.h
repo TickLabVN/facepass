@@ -2,8 +2,21 @@
 #define __FACEPASS_CONFIG_H__
 
 #include <string>
+#include <vector>
+#include <dirent.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 using namespace std;
 
-string get_config_path();
+enum ModelType {
+    FACE_DETECTION,
+    FACE_RECOGNITION,
+    FACE_ANTI_SPOOFING,
+};
+
+string user_face_path(const string &username);
+string model_path(const string &username, const ModelType &modelType);
+vector<string> get_usernames();
+int setup_config(const string &username);
 
 #endif // __FACEPASS_CONFIG_H__
