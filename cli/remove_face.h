@@ -2,9 +2,8 @@
 #define __FACEPASS_REMOVE_FACE_H__
 
 #include <string>
-#include "config.h"
-using namespace std;
+#include "face_config.h"
 
-int remove_face();
+int remove_face(const string &);
 
 #endif // __FACEPASS_REMOVE_FACE_H__

@@ -6,10 +6,10 @@
 #include <unistd.h>
 #include <string>
 #include "face_detection.h"
-#include "config.h"
+#include "face_config.h"
 
 int capture_face(cv::Mat &);
 cv::Mat detect_face(cv::Mat &);
-int add_face();
+int add_face(const std::string &);
 
 #endif // __ADD_FACE_H__

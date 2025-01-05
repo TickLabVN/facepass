@@ -7,8 +7,13 @@
 #include <security/pam_modules.h>
 #include <opencv2/opencv.hpp>
 #include <iostream>
+#include <thread>
+#include <chrono>
+#include "face_recognition.h"
+#include "face_detection.h"
+#include "face_config.h"
 
-int capture_face();
+int scanFace();
 int face_identify(pam_handle_t *pamh, int flags, int argc,
                   const char **argv);
 #endif
