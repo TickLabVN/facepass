@@ -17,6 +17,7 @@ enum ModelType {
 string user_face_path(const string &username);
 string model_path(const string &username, const ModelType &modelType);
 vector<string> get_usernames();
+string debug_path(const string &username);
 int setup_config(const string &username);
 
 #endif // __FACEPASS_CONFIG_H__

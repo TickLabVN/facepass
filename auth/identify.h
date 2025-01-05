@@ -10,6 +10,7 @@
 #include <thread>
 #include <chrono>
 #include "face_recognition.h"
+#include "face_detection.h"
 #include "face_config.h"
 
 int scanFace();

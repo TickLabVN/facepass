@@ -30,6 +30,10 @@ string user_face_path(const string &username)
 {
     return string("/home/") + username + "/.config/facepass/faces/face.jpg";
 }
+string debug_path(const string &username)
+{
+    return string("/home/") + username + "/.config/facepass/debugs";
+}
 
 vector<string> get_usernames()
 {
@@ -73,8 +77,11 @@ int setup_config(const string &username)
         return 1;
     string faceDir = configDir + "/faces";
     string modelDir = configDir + "/models";
+    string debugDir = configDir + "/debugs";
 
     if (mkdir_p(faceDir) != 0)
         return 1;
-    return mkdir_p(modelDir);
+    if (mkdir_p(modelDir) != 0)
+        return 1;
+    return mkdir_p(debugDir);
 }
