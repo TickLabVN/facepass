@@ -9,8 +9,8 @@
 #include <torch/torch.h>
 #include <memory>
 
-#include "face_det/face_det.h"
-#include "face_reg/face_reg.h"
+#include "face_detection.h"
+#include "face_recognition.h"
 
 using namespace std;
 using namespace cv;
