@@ -7,6 +7,36 @@ torch::Tensor to_tensor(const cv::Mat& img) {
 	return img_tensor;
 };
 
+cv::Mat resize(const cv::Mat& image, cv::Size target_size, cv::Scalar pad_color = cv::Scalar(0, 0, 0), int interp = cv::INTER_AREA) {
+    int target_w = target_size.width;
+    int target_h = target_size.height;
+    int original_h = image.rows;
+    int original_w = image.cols;
+
+    // Calculate scaling factor
+    double scale = std::min((double)target_w / original_w, (double)target_h / original_h);
+    int new_w = static_cast<int>(original_w * scale);
+    int new_h = static_cast<int>(original_h * scale);
+
+    // Resize the image
+    cv::Mat resizedImage;
+    cv::resize(image, resizedImage, cv::Size(new_w, new_h), 0, 0, interp);
+
+    // Calculate padding
+    int delta_w = target_w - new_w;
+    int delta_h = target_h - new_h;
+    int top = delta_h / 2;
+    int bottom = delta_h - top;
+    int left = delta_w / 2;
+    int right = delta_w - left;
+
+    // Add padding
+    cv::Mat padded_img;
+    cv::copyMakeBorder(resizedImage, padded_img, top, bottom, left, right, cv::BORDER_CONSTANT, pad_color);
+
+    return padded_img;
+}
+
 torch::Tensor normalize(const torch::Tensor& input, const std::vector<float>& mean, const std::vector<float>& std) {
     TORCH_CHECK(input.size(0) == mean.size(), "Mean size must match number of channels");
     TORCH_CHECK(input.size(0) == std.size(), "Std size must match number of channels");
@@ -43,7 +73,8 @@ void FaceRecognition::load_model(const std::string& ckpt)
 
 torch::Tensor FaceRecognition::preprocess(cv::Mat& input_image) {
     cv::Mat resize_img;
-	cv::resize(input_image, resize_img, cv::Size(112, 112));
+	// cv::resize(input_image, resize_img, cv::Size(112, 112));
+    resize_img = resize(input_image, cv::Size(112, 112));
 
     std::vector<float> mean({0.5, 0.5, 0.5});
     std::vector<float> std({0.5, 0.5, 0.5});
