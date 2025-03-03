@@ -11,7 +11,7 @@ target_include_directories(${CLI} PRIVATE
 )
 target_link_libraries(${CLI} PRIVATE
     ${OpenCV_LIBS} ${TORCH_LIBRARIES}
-    face_detection
-    face_config
+    facepass_det
+    facepass_cfg
     CLI11::CLI11
 )

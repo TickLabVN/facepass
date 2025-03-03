@@ -8,6 +8,6 @@ target_include_directories(${FACE_TEST} PRIVATE
 )
 target_link_libraries(${FACE_TEST} PRIVATE
     ${OpenCV_LIBS} ${TORCH_LIBRARIES}
-    face_detection
-    face_recognition
+    facepass_det
+    facepass_reg
 )

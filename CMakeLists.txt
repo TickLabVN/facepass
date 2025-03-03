@@ -25,3 +25,26 @@ add_subdirectory(cli)
 add_subdirectory(auth)
 add_subdirectory(test/face_engine)
 add_subdirectory(test/pam)
+
+install(
+    TARGETS ${PROJECT_NAME} facepass_pam facepass_cfg facepass_det facepass_reg 
+    COMPONENT applications
+    RUNTIME DESTINATION "/usr/bin"
+    LIBRARY DESTINATION "/usr/lib"
+)
+
+# Install libtorch libraries
+install(
+    DIRECTORY external/libtorch/lib/
+    DESTINATION "/usr/lib"
+    FILES_MATCHING PATTERN "*.so"
+)
+
+SET(CPACK_GENERATOR "DEB")
+SET(CPACK_DEBIAN_PACKAGE_NAME "facepass")
+SET(CPACK_DEBIAN_PACKAGE_VERSION "0.1.0")
+SET(CPACK_DEBIAN_PACKAGE_ARCHITECTURE "amd64")
+SET(CPACK_DEBIAN_PACKAGE_DESCRIPTION "Facepass is a face recognition authentication system.")
+SET(CPACK_DEBIAN_PACKAGE_DEPENDS "libopencv-dev, libpam0g-dev, libcli11-dev")
+SET(CPACK_DEBIAN_PACKAGE_MAINTAINER "Nguyen Phuc Vinh & Tran Trung Thai") #required
+INCLUDE(CPack)

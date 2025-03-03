@@ -4,3 +4,5 @@ external
 **/inputs
 **/outputs
 build
+build*
+dist
