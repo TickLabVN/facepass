@@ -1,5 +1,13 @@
 cmake_minimum_required(VERSION 3.22)
 project(facepass)
+set(PROJECT_VERSION 0.1.0)
+if(DEFINED ENV{PROJECT_VERSION})
+    message(STATUS "Project version: $ENV{PROJECT_VERSION}")
+    set(PROJECT_VERSION $ENV{PROJECT_VERSION})
+else()
+    message(STATUS "Project version: latest")
+    set(PROJECT_VERSION latest)
+endif()
 
 # Require C++17
 set(CMAKE_CXX_STANDARD          17)
@@ -41,10 +49,11 @@ install(
 )
 
 SET(CPACK_GENERATOR "DEB")
-SET(CPACK_DEBIAN_PACKAGE_NAME "facepass")
-SET(CPACK_DEBIAN_PACKAGE_VERSION "0.1.0")
+SET(CPACK_PACKAGE_NAME ${PROJECT_NAME})
+SET(CPACK_PACKAGE_VERSION ${PROJECT_VERSION})
 SET(CPACK_DEBIAN_PACKAGE_ARCHITECTURE "amd64")
 SET(CPACK_DEBIAN_PACKAGE_DESCRIPTION "Facepass is a face recognition authentication system.")
 SET(CPACK_DEBIAN_PACKAGE_DEPENDS "libopencv-dev, libpam0g-dev, libcli11-dev")
 SET(CPACK_DEBIAN_PACKAGE_MAINTAINER "Nguyen Phuc Vinh & Tran Trung Thai") #required
+
 INCLUDE(CPack)
