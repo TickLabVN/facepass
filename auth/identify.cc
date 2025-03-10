@@ -37,24 +37,22 @@ namespace uuid
     }
 }
 
-int scanFace(const string &username, int8_t retries = 5)
+int scan_face(const string &username, int8_t retries = 10)
 {
-    printf("Scanning face for %s\n", username.c_str());
-    cv::VideoCapture camera(0); // in linux check $ ls /dev/video0
+    cv::VideoCapture camera(0, cv::CAP_V4L2); // in linux check $ ls /dev/video0
     if (!camera.isOpened())
     {
         std::cerr << "ERROR: Could not open camera" << std::endl;
-        return 1;
+        return PAM_AUTH_ERR;
     }
 
     string userFacePath = user_face_path(username);
-    printf("Loading face from %s\n", userFacePath.c_str());
 
     cv::Mat preparedFace = cv::imread(userFacePath);
     if (preparedFace.empty())
     {
         std::cerr << "ERROR: Face not found" << std::endl;
-        return 1;
+        return PAM_AUTH_ERR;
     }
     FaceRecognition faceReg(model_path(username, FACE_RECOGNITION));
     FaceDetection faceDetector(model_path(username, FACE_DETECTION));
@@ -74,32 +72,26 @@ int scanFace(const string &username, int8_t retries = 5)
         }
         MatchResult match = faceReg.match(preparedFace, face);
         if (match.similar)
-            return 0;
+            return PAM_SUCCESS;
 
         string failedFace = debug_path(username) + "/" + uuid::v4() + ".jpg";
-        printf("Saving failed face to %s\n", failedFace.c_str());
+
         int ret = cv::imwrite(failedFace, face);
-        if (ret == 0) std::cerr << "ERROR[]" << ret << "]: Could not save failed face" << std::endl;
+        if (ret == 0)
+            std::cerr << "ERROR[]" << ret << "]: Could not save failed face" << std::endl;
+        printf("saved failed face to %s\n", failedFace.c_str());
 
         printf("Match distance: %f\n", match.dist);
         printf("Face not recognized. Retrying...\n");
         this_thread::sleep_for(chrono::milliseconds(200));
     }
     std::cerr << "ERROR: Face not recognized" << std::endl;
-    return 1;
+    return PAM_AUTH_ERR;
 }
 
-int face_identify(
-    pam_handle_t *pamh,
-    int flags,
-    int argc,
-    const char **argv)
+int face_identify(const char *username)
 {
-    const int8_t maxRetries = 5;
-    vector<string> usernames = get_usernames();
-    for (const string &username : usernames)
-        if (scanFace(username, maxRetries) == 0)
-            return PAM_SUCCESS;
-
+    if (scan_face(username) == PAM_SUCCESS)
+        return PAM_SUCCESS;
     return PAM_AUTH_ERR;
 }

@@ -67,21 +67,15 @@ string model_path(const string &username, const ModelType &modelType)
         modelTypeStr = "mobilenet_v3_small.onnx";
         break;
     }
-    return string("/home/") + username + "/.config/facepass/models/" + modelTypeStr;
+    return string("/etc/xdg/facepass/models/") + modelTypeStr;
 }
 
 int setup_config(const string &username)
 {
     const string configDir = string(getenv("HOME")) + "/.config/facepass";
-    if (mkdir_p(configDir) != 0)
-        return 1;
-    string faceDir = configDir + "/faces";
-    string modelDir = configDir + "/models";
-    string debugDir = configDir + "/debugs";
-
+    const string faceDir = configDir + "/faces";
     if (mkdir_p(faceDir) != 0)
         return 1;
-    if (mkdir_p(modelDir) != 0)
-        return 1;
+    string debugDir = configDir + "/debugs";
     return mkdir_p(debugDir);
 }

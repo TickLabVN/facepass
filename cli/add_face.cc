@@ -55,6 +55,7 @@ int add_face(const string &username)
     result = cv::imwrite(faceImagePath, face);
     if (result == 0)
     {
+        printf("Face size dimension %d", face.size.dims());
         printf("Failed to save face.\n");
         return 1;
     }

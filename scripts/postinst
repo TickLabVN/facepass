@@ -1,0 +1,21 @@
+#!/bin/sh
+# Post-installation script for facepass package
+
+set -e  # Exit on error
+
+# Add PAM configuration to the top of /etc/pam.d/common-auth
+echo "Adding PAM configuration to /etc/pam.d/common-auth..."
+PAM_LINE="auth   sufficient libfacepass_pam.so     timeout=5"
+PAM_FILE="/etc/pam.d/common-auth"
+
+# Check if the line already exists in the file
+if ! grep -Fxq "$PAM_LINE" "$PAM_FILE"; then
+    # Insert the line at the top of the file
+    sed -i "1i$PAM_LINE" "$PAM_FILE"
+    echo "PAM configuration added successfully to the top of $PAM_FILE."
+else
+    echo "PAM configuration already exists. Skipping."
+fi
+
+echo "Post-installation script completed successfully."
+exit 0

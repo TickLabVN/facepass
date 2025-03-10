@@ -13,7 +13,6 @@
 #include "face_detection.h"
 #include "face_config.h"
 
-int scanFace(const string&, int8_t);
-int face_identify(pam_handle_t *pamh, int flags, int argc,
-                  const char **argv);
+int scan_face(const string &, int8_t);
+int face_identify(const char *);
 #endif
