@@ -17,13 +17,12 @@ PAM_EXTERN int pam_sm_authenticate(
 	const char* pUsername;
 	retval = pam_get_user(pamh, &pUsername, "Username: ");
 
-	printf("Welcome %s\n", pUsername);
 	if (retval != PAM_SUCCESS)
 		return retval;
 
 	retval = face_identify(pUsername);
 	if (retval == PAM_SUCCESS)
-		printf("Face recognized.\n");
+		printf("Face recognized! Welcome %s\n", pUsername);
 	else
 		printf("Face not recognized\n");
 	return retval;
@@ -56,6 +55,6 @@ PAM_EXTERN int pam_sm_setcred(
 	int argc,
 	const char **argv)
 {
-	printf("pam_sm_setcred\n");
+	printf("facepass_pam_sm_setcred\n");
 	return PAM_SUCCESS;
 }
