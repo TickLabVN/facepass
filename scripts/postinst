@@ -5,7 +5,7 @@ set -e  # Exit on error
 
 # Add PAM configuration to the top of /etc/pam.d/common-auth
 echo "Adding PAM configuration to /etc/pam.d/common-auth..."
-PAM_LINE="auth   sufficient libfacepass_pam.so     timeout=5"
+PAM_LINE="auth    [success=2 default=ignore]  libfacepass_pam.so"
 PAM_FILE="/etc/pam.d/common-auth"
 
 # Check if the line already exists in the file

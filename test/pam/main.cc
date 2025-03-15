@@ -10,40 +10,33 @@ const struct pam_conv conv = {
 int main(int argc, char *argv[])
 {
 	pam_handle_t *pamh = NULL;
-	int retval;
+	auto user = getenv("USER");
 
-	auto users = get_usernames();
+	int retval = pam_start("sudo", user, &conv, &pamh);
 
-	for (const auto& user : users)
+	// Are the credentials correct?
+	if (retval == PAM_SUCCESS)
+		retval = pam_authenticate(pamh, 0);
+
+	// Can the account be used at this time?
+	if (retval == PAM_SUCCESS)
 	{
-		retval = pam_start("check_user", user.c_str(), &conv, &pamh);
+		printf("Account %s is valid.\n", user);
+		retval = pam_acct_mgmt(pamh, 0);
+	}
 
-		// Are the credentials correct?
-		if (retval == PAM_SUCCESS)
-			retval = pam_authenticate(pamh, 0);
+	// Did everything work?
+	if (retval == PAM_SUCCESS)
+		printf("User %s authenticated\n", user);
+	else
+		printf("User %s not authenticated\n", user);
 
-		// Can the account be used at this time?
-		if (retval == PAM_SUCCESS)
-		{
-			printf("Account %s is valid.\n", user.c_str());
-			retval = pam_acct_mgmt(pamh, 0);
-		}
-
-		// Did everything work?
-		if (retval == PAM_SUCCESS) {
-			printf("User %s authenticated\n", user.c_str());
-			break;
-		} else {
-			printf("User %s not authenticated\n", user.c_str());
-		}
-
-		// close PAM (end session)
-		if (pam_end(pamh, retval) != PAM_SUCCESS)
-		{
-			pamh = NULL;
-			printf("check_user: failed to release authenticator for user %s\n", user.c_str());
-			exit(1);
-		}
+	// close PAM (end session)
+	if (pam_end(pamh, retval) != PAM_SUCCESS)
+	{
+		pamh = NULL;
+		printf("check_user: failed to release authenticator for user %s\n", user);
+		exit(1);
 	}
 	return 0;
 }

@@ -35,23 +35,6 @@ string debug_path(const string &username)
     return string("/home/") + username + "/.config/facepass/debugs";
 }
 
-vector<string> get_usernames()
-{
-    vector<string> usernames;
-    DIR *dir;
-    struct dirent *ent;
-    if ((dir = opendir("/home")) != NULL)
-    {
-        while ((ent = readdir(dir)) != NULL)
-            if (ent->d_type == DT_DIR && ent->d_name[0] != '.')
-                usernames.push_back(ent->d_name);
-        closedir(dir);
-    }
-    else
-        perror("Could not open directory");
-    return usernames;
-}
-
 string model_path(const string &username, const ModelType &modelType)
 {
     string modelTypeStr;

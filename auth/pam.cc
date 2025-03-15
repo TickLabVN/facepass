@@ -13,9 +13,10 @@ PAM_EXTERN int pam_sm_authenticate(
 	int argc,
 	const char **argv)
 {
+	// return PAM_SUCCESS;
 	int retval;
-	const char* pUsername;
-	retval = pam_get_user(pamh, &pUsername, "Username: ");
+	const char *pUsername;
+	retval = pam_get_user(pamh, &pUsername, NULL);
 
 	if (retval != PAM_SUCCESS)
 		return retval;
@@ -35,26 +36,32 @@ PAM_EXTERN int pam_sm_open_session(
 	int argc,
 	const char **argv)
 {
-	return PAM_IGNORE;
+	// return PAM_SUCCESS;
+	const char *pUsername;
+	int retval = pam_get_user(pamh, &pUsername, NULL);
+	if (retval != PAM_SUCCESS)
+		return retval;
+	return face_identify(pUsername);
 }
 
-// ======= These functions below are required by PAM, but not needed in this module
-// https://www.man7.org/linux/man-pages/man3/pam_sm_acct_mgmt.3.html
-PAM_EXTERN int pam_sm_acct_mgmt(
-	pam_handle_t *pamh,
-	int flags,
-	int argc,
-	const char **argv)
+// The functions below are required by PAM, but not needed in this module
+PAM_EXTERN int pam_sm_acct_mgmt(pam_handle_t *pamh, int flags, int argc,
+								const char **argv)
 {
 	return PAM_IGNORE;
 }
-// https://www.man7.org/linux/man-pages/man3/pam_sm_setcred.3.html
-PAM_EXTERN int pam_sm_setcred(
-	pam_handle_t *pamh,
-	int flags,
-	int argc,
-	const char **argv)
+PAM_EXTERN int pam_sm_close_session(pam_handle_t *pamh, int flags, int argc,
+									const char **argv)
 {
-	printf("facepass_pam_sm_setcred\n");
-	return PAM_SUCCESS;
+	return PAM_IGNORE;
+}
+PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags, int argc,
+								const char **argv)
+{
+	return PAM_IGNORE;
+}
+PAM_EXTERN int pam_sm_setcred(pam_handle_t *pamh, int flags, int argc,
+							  const char **argv)
+{
+	return PAM_IGNORE;
 }
