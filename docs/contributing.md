@@ -26,10 +26,11 @@
    sudo chown -R $(whoami) /etc/pam.d/common-auth
    sudo chmod +w /etc/pam.d/common-auth
    ```
-
-1. Copy the `libfacepass_pam.so` to `/lib/security/`
+After compiling, follow these steps:
+1. Run `./build/cli/facepass add` to open a window to add your face. Press `Esc` to save and exit.
+2. Copy the `libfacepass_pam.so` to `/lib/security/`
    ```bash
    sudo cp build/auth/libfacepass_pam.so /lib/security/
    ```
-2. Add the line `auth sufficient libfacepass_pam.so` to the top of file `/etc/pam.d/common-auth`. You may need `sudo` permission to edit this file.
-3. Now type `sudo -i` to test if the Facepass PAM module works. If it does, you should be able to login with your face.
+3. Add the line `auth sufficient libfacepass_pam.so` to the top of file `/etc/pam.d/common-auth`. You may need `sudo` permission to edit this file.
+4. Now type `sudo -i` to test if the Facepass PAM module works. If it does, you should be able to login with your face.
