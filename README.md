@@ -14,7 +14,7 @@ There's also a FaceID login module for Linux: [Howdy](https://github.com/boltgol
 ```sh
 # Download the Debian package
 # Replace <version> with the actual version number you want to download
-wget http://deb-pkg.ticklab.site/pkool/main/f/facepass/facepass-<version>-Linux.deb -O facepass.deb
+wget https://github.com/TickLabVN/facepass/releases/download/<version_tag>/facepass-<version_tag>-ubuntu-22.04.deb -O facepass.deb
 
 # Install the package
 sudo dpkg -i facepass.deb
