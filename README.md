@@ -14,7 +14,7 @@ There's also a FaceID login module for Linux: [Howdy](https://github.com/boltgol
 ```sh
 # Download the Debian package
 # Replace <version> with the actual version number you want to download
-wget http://deb-pkg.ticklab.site/pool/main/f/facepass/facepass-<version>-Linux.deb -O facepass.deb
+wget http://deb-pkg.ticklab.site/pkool/main/f/facepass/facepass-<version>-Linux.deb -O facepass.deb
 
 # Install the package
 sudo dpkg -i facepass.deb
@@ -46,16 +46,14 @@ A window will pop up, prompting you to look at the camera. Make sure your face i
 
 ### Enabling face login
 
-To enable face login, you need to edit the `/etc/pam.d/login` file. Open the file with your favorite text editor (you may need sudo permission), find this line:
+To enable face login, you need to edit the `/etc/pam.d/gdm-password` file. Open the file with your favorite text editor (you may need sudo permission), find this line:
 
 ```sh
-# Standard Un*x authentication.
 @include common-auth
 ```
 
 Add the following line above `@include common-auth`:
 ```sh
-# Standard Un*x authentication.
 auth	[success=2 default=ignore]	libfacepass_pam.so
 @include common-auth
 ```
