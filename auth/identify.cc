@@ -63,6 +63,11 @@ int scan_face(const string &username, int8_t retries = 10)
         camera >> loginFace;
 
         std::vector<Detection> detectedImages = faceDetector.inference(loginFace);
+        if(detectedImages.empty())
+        {
+            std::cerr << "ERROR: No face detected" << std::endl;
+            continue;
+        }
         cv::Mat face = detectedImages[0].image;
 
         if (loginFace.empty())

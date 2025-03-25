@@ -12,7 +12,16 @@ int main(int argc, char *argv[])
 	pam_handle_t *pamh = NULL;
 	auto user = getenv("USER");
 
-	int retval = pam_start("sudo", user, &conv, &pamh);
+	if(argc < 2)
+	{
+		fprintf(stderr, "Usage: %s <pam_command>\n", argv[0]);
+		return 1;
+	}
+	char *command = argv[1];
+
+	printf("Command: %s\n", command);
+
+	int retval = pam_start(command, user, &conv, &pamh);
 
 	// Are the credentials correct?
 	if (retval == PAM_SUCCESS)
