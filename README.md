@@ -22,7 +22,7 @@ sudo dpkg -i facepass.deb
 # Fix any dependency issues
 sudo apt install --fix-broken
 ```
-
+<!-- 
 ### Using APT Repository
 
 ```sh
@@ -34,7 +34,7 @@ sudo apt update
 
 # Install Facepass
 sudo apt install facepass
-```
+``` -->
 ### Adding your face
 
 After installing Facepass, you need to add your face to your system. Run the following command:
