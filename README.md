@@ -41,11 +41,24 @@ To enable face login, edit the `/etc/pam.d/gdm-password` file. Open it with your
 
 Insert the following line above `@include common-auth`:
 ```sh
-auth	[success=2 default=ignore]	libfacepass_pam.so
+auth [success=2 default=ignore] libfacepass_pam.so
 @include common-auth
 ```
 
 Log out and log back in to test. Facepass will attempt to authenticate your face first. If it fails, you will be prompted to enter your password.
+
+### Handling Camera or Lighting Issues
+
+If your RGB camera is not ready or the lighting conditions are poor, you can adjust the following options:
+
+- `retries`: Sets the maximum number of authentication attempts. The default is 10.
+- `retry_delay`: Specifies the delay (in milliseconds) between each retry attempt. The default is 200 milliseconds.
+
+For example, to increase the maximum retries to 20 and set the delay between retries to 200 milliseconds, modify the line as follows:
+
+```sh
+auth [success=2 default=ignore] libfacepass_pam.so retries=20 retry_delay=200
+```
 
 ## How to Contribute
 
