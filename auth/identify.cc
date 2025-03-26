@@ -37,7 +37,7 @@ namespace uuid
     }
 }
 
-int scan_face(const string &username, int8_t retries = 10)
+int scan_face(const string &username, int8_t retries, const int gap)
 {
     cv::VideoCapture camera(0, cv::CAP_V4L2); // in linux check $ ls /dev/video0
     if (!camera.isOpened())
@@ -84,19 +84,8 @@ int scan_face(const string &username, int8_t retries = 10)
         int ret = cv::imwrite(failedFace, face);
         if (ret == 0)
             std::cerr << "ERROR[]" << ret << "]: Could not save failed face" << std::endl;
-        printf("saved failed face to %s\n", failedFace.c_str());
-
-        printf("Match distance: %f\n", match.dist);
-        printf("Face not recognized. Retrying...\n");
-        this_thread::sleep_for(chrono::milliseconds(200));
+        this_thread::sleep_for(chrono::milliseconds(gap));
     }
     std::cerr << "ERROR: Face not recognized" << std::endl;
-    return PAM_AUTH_ERR;
-}
-
-int face_identify(const char *username)
-{
-    if (scan_face(username) == PAM_SUCCESS)
-        return PAM_SUCCESS;
     return PAM_AUTH_ERR;
 }

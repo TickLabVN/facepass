@@ -13,15 +13,25 @@ PAM_EXTERN int pam_sm_authenticate(
 	int argc,
 	const char **argv)
 {
-	// return PAM_SUCCESS;
 	int retval;
 	const char *pUsername;
 	retval = pam_get_user(pamh, &pUsername, NULL);
 
+	int8_t num_retries = 10;
+	int gap = 200;
+	for (int i = 0; i < argc; ++i) {
+		if (strncmp(argv[i], "retries=", 8) == 0) {
+			num_retries = atoi(argv[i] + 8);
+		} else if (strncmp(argv[i], "retry_delay=", 12) == 0) {
+			gap = atoi(argv[i] + 12);
+		}
+	}
+	printf("retries: %d, retry_delay: %d\n", num_retries, gap);
+
 	if (retval != PAM_SUCCESS)
 		return retval;
 
-	retval = face_identify(pUsername);
+	retval = scan_face(pUsername, num_retries, gap);
 	if (retval == PAM_SUCCESS)
 		printf("Face recognized! Welcome %s\n", pUsername);
 	else
@@ -36,12 +46,7 @@ PAM_EXTERN int pam_sm_open_session(
 	int argc,
 	const char **argv)
 {
-	// return PAM_SUCCESS;
-	const char *pUsername;
-	int retval = pam_get_user(pamh, &pUsername, NULL);
-	if (retval != PAM_SUCCESS)
-		return retval;
-	return face_identify(pUsername);
+	return PAM_IGNORE;
 }
 
 // The functions below are required by PAM, but not needed in this module
