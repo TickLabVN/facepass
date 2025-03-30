@@ -33,19 +33,26 @@ A window will appear, prompting you to look at the camera. Ensure your face is w
 
 ### Enabling Face Login
 
-To enable face login, edit the `/etc/pam.d/gdm-password` file. Open it with your preferred text editor (sudo permissions required), locate this line:
+To enable face ID login, follow these steps:
+1. Count the number of modules above `pam_deny.so` in the `/etc/pam.d/common-auth` file:
+    ```sh
+    grep -n '^[^#]*pam_deny.so' /etc/pam.d/common-auth | cut -d: -f1 | xargs -I {} bash -c 'sed "1,$(({}))!d;/^#/d;/^\s*$/d" /etc/pam.d/common-auth | wc -l'
+    ```
+    This command will return a number, let's call it `N`.
+2. In the `/etc/pam.d/gdm-password` file, locate this line:
+    ```sh
+    ```
+3. Assume `N` = 2, edit the `/etc/pam.d/common-auth` file (you may need `sudo` privileges), insert the following line above `@include common-auth`:
+    ```sh
+    auth [success=2 default=ignore] libfacepass_pam.so
+    @include common-auth
+    ```
+4. Log out and log back in to test. Facepass will attempt to authenticate your face first. If it fails, you will be prompted to enter your password.
 
-```sh
-@include common-auth
-```
-
-Insert the following line above `@include common-auth`:
-```sh
-auth [success=2 default=ignore] libfacepass_pam.so
-@include common-auth
-```
-
-Log out and log back in to test. Facepass will attempt to authenticate your face first. If it fails, you will be prompted to enter your password.
+Explanation of PAM Configuration: the line `auth [success=2 default=ignore] libfacepass_pam.so` configures the PAM (Pluggable Authentication Module) system to handle face recognition. Here's how it works:
+- If face recognition is **successful**, the system skips the next `N` modules (in this case, `N = 2`) and proceeds to the subsequent module. This allows the user to log in without entering a password.
+- If face recognition **fails**, the system moves to the next module, which is `@include common-auth`. This prompts the user to enter their password.
+To determine the value of `N`, we count the number of modules above `pam_deny.so` in the `/etc/pam.d/common-auth` file. This ensures that the configuration aligns with the system's authentication flow. Please visit https://docs.oracle.com/cd/E19683-01/817-0365/pam-36/index.html for more details.
 
 ### Handling Camera or Lighting Issues
 
