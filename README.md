@@ -84,5 +84,6 @@ We are actively working on the following features and improvements:
 - [ ] **Extended Login Support**: Apply face recognition to other login methods (e.g., `sudo`, `su`). See [issue #5](https://github.com/TickLabVN/facepass/issues/5).
 - [ ] **Face Anti-Spoofing**: Enhance security with anti-spoofing measures. This feature will be optional for users with weaker cameras.
 - [ ] **IR Camera Support**: Expand compatibility to include infrared cameras. Currently, only RGB cameras are supported.
+- [ ] **Keyring Unlock**: User must enter password on the first login time to unlock applications, see https://askubuntu.com/a/238055 for more details. We will find the way to eliminate it.
 
 Join us in shaping the future of Facepass!
