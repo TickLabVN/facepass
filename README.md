@@ -42,7 +42,7 @@ To enable face ID login, follow these steps:
 2. In the `/etc/pam.d/gdm-password` file, locate this line:
     ```sh
     ```
-3. Assume `N` = 2, edit the `/etc/pam.d/common-auth` file (you may need `sudo` privileges), insert the following line above `@include common-auth`:
+3. Assume `N` = 2, edit the `/etc/pam.d/gdm-password` file (you may need `sudo` privileges), insert the following line above `@include common-auth`:
     ```sh
     auth [success=2 default=ignore] libfacepass_pam.so
     @include common-auth

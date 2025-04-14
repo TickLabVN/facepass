@@ -18,20 +18,21 @@ PAM_EXTERN int pam_sm_authenticate(
 	retval = pam_get_user(pamh, &pUsername, NULL);
 
 	int8_t num_retries = 10;
-	int gap = 200;
+	int retry_delay = 200;
+	bool anti_spoof = false;
 	for (int i = 0; i < argc; ++i) {
 		if (strncmp(argv[i], "retries=", 8) == 0) {
 			num_retries = atoi(argv[i] + 8);
 		} else if (strncmp(argv[i], "retry_delay=", 12) == 0) {
-			gap = atoi(argv[i] + 12);
+			retry_delay = atoi(argv[i] + 12);
+		} else if (strcmp(argv[i], "anti_spoof") == 0) {
+			anti_spoof = true;
 		}
 	}
-	printf("retries: %d, retry_delay: %d\n", num_retries, gap);
-
 	if (retval != PAM_SUCCESS)
 		return retval;
 
-	retval = scan_face(pUsername, num_retries, gap);
+	retval = scan_face(pUsername, num_retries, retry_delay);
 	if (retval == PAM_SUCCESS)
 		printf("Face recognized! Welcome %s\n", pUsername);
 	else
@@ -39,7 +40,7 @@ PAM_EXTERN int pam_sm_authenticate(
 	return retval;
 }
 
-// Called by PAM when a session is started, such as by the su command
+// The functions below are required by PAM, but not needed in this module
 PAM_EXTERN int pam_sm_open_session(
 	pam_handle_t *pamh,
 	int flags,
@@ -49,7 +50,6 @@ PAM_EXTERN int pam_sm_open_session(
 	return PAM_IGNORE;
 }
 
-// The functions below are required by PAM, but not needed in this module
 PAM_EXTERN int pam_sm_acct_mgmt(pam_handle_t *pamh, int flags, int argc,
 								const char **argv)
 {

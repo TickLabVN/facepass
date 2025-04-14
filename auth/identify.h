@@ -3,15 +3,16 @@
 
 #include <stdio.h>
 #include <string.h>
-#include <security/pam_appl.h>
-#include <security/pam_modules.h>
-#include <opencv2/opencv.hpp>
+#include <security/_pam_types.h>
 #include <iostream>
 #include <thread>
 #include <chrono>
+#include <opencv2/opencv.hpp>
 #include "face_recognition.h"
 #include "face_detection.h"
 #include "face_config.h"
+#include <random>
+#include <sstream>
 
 int scan_face(const string &, int8_t, const int);
 #endif

@@ -47,7 +47,7 @@ string model_path(const string &username, const ModelType &modelType)
         modelTypeStr = "edgeface_s_gamma_05_ts.pt";
         break;
     case FACE_ANTI_SPOOFING:
-        modelTypeStr = "mobilenet_v3_small.onnx";
+        modelTypeStr = "mobilenetv3_antispoof_ts.pt";
         break;
     }
     return string("/etc/xdg/facepass/models/") + modelTypeStr;

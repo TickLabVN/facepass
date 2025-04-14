@@ -1,7 +1,5 @@
 #include "identify.h"
 
-#include <random>
-#include <sstream>
 
 namespace uuid
 {

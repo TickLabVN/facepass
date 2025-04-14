@@ -34,6 +34,7 @@ int capture_face(cv::Mat &frame)
 cv::Mat detect_face(const string &username, cv::Mat &frame)
 {
     const string model = model_path(username, FACE_DETECTION);
+    
     FaceDetection detector(model);
     std::vector<Detection> detectedImages = detector.inference(frame);
     cv::Mat face = detectedImages[0].image;
