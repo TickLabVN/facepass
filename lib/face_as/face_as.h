@@ -23,6 +23,7 @@ public:
 class FaceAntiSpoofing {
 public:
     FaceAntiSpoofing(
+        // TorchScript model path
         const std::string &ckpt,
         const cv::Size &imgsz={128, 128},
         const bool &cuda=false,

@@ -32,7 +32,7 @@ PAM_EXTERN int pam_sm_authenticate(
 	if (retval != PAM_SUCCESS)
 		return retval;
 
-	retval = scan_face(pUsername, num_retries, retry_delay);
+	retval = scan_face(pUsername, num_retries, retry_delay, anti_spoof);
 	if (retval == PAM_SUCCESS)
 		printf("Face recognized! Welcome %s\n", pUsername);
 	else

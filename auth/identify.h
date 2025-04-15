@@ -11,8 +11,9 @@
 #include "face_recognition.h"
 #include "face_detection.h"
 #include "face_config.h"
+#include "face_as.h"
 #include <random>
 #include <sstream>
 
-int scan_face(const string &, int8_t, const int);
+int scan_face(const string &, int8_t, const int, bool anti_spoofing = false);
 #endif

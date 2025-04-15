@@ -2,7 +2,6 @@ set(PAM facepass_pam)
 add_library(${PAM} SHARED
     pam.cc
     identify.cc
-    anti_spoof.cc
 )
 target_include_directories(${PAM} PRIVATE
     ${OpenCV_INCLUDE_DIRS}
