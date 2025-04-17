@@ -16,7 +16,7 @@ void setup_config_command(CLI::App &app)
     auto retries_option = config->add_option("-r,--retries", *retries, "Number of retries before failing.")
                               ->check(CLI::Range(1, 100));
     auto delay_option = config->add_option("-d,--delay", *delay, "Delay between retries in milliseconds.")
-                            ->check(CLI::Range(0, 10000));
+                            ->check(CLI::Range(100, 10000));
     auto anti_spoof_flag = config->add_flag("--anti-spoof", *anti_spoof, "Enable anti-spoofing detection.\nFalse by default because some old cameras may not have enough resolution to detect spoofing.");
     config->require_option(1, 5);
 

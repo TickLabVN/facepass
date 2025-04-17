@@ -24,48 +24,53 @@ sudo apt install --fix-broken
 
 ### Adding Your Face
 
-After installing Facepass, add your face to the system by running:
+Once Facepass is installed, you can register your face by running the following command:
+
 ```sh
-facepass add
+facepass register
 ```
 
-A window will appear, prompting you to look at the camera. Ensure your face is well-lit and clearly visible. Press `Esc` to capture your face and close the window. Your face data will be saved in `~/.config/facepass`.
+A window will open, prompting you to position your face in front of the camera. Ensure your face is well-lit and clearly visible. Press `Enter` or `Esc` to capture your face and close the window. The captured face data will be stored in `~/.config/facepass`.
+
+To remove your face data from the system, use the command:
+
+```sh
+facepass unregister
+```
 
 ### Enabling Face Login
 
-To enable face ID login, follow these steps:
-1. Count the number of modules above `pam_deny.so` in the `/etc/pam.d/common-auth` file:
-    ```sh
-    grep -n '^[^#]*pam_deny.so' /etc/pam.d/common-auth | cut -d: -f1 | xargs -I {} bash -c 'sed "1,$(({}))!d;/^#/d;/^\s*$/d" /etc/pam.d/common-auth | wc -l'
-    ```
-    This command will return a number, let's call it `N`.
-2. In the `/etc/pam.d/gdm-password` file, locate this line:
-    ```sh
-    ```
-3. Assume `N` = 2, edit the `/etc/pam.d/gdm-password` file (you may need `sudo` privileges), insert the following line above `@include common-auth`:
-    ```sh
-    auth [success=2 default=ignore] libfacepass_pam.so
-    @include common-auth
-    ```
-4. Log out and log back in to test. Facepass will attempt to authenticate your face first. If it fails, you will be prompted to enter your password.
-
-Explanation of PAM Configuration: the line `auth [success=2 default=ignore] libfacepass_pam.so` configures the PAM (Pluggable Authentication Module) system to handle face recognition. Here's how it works:
-- If face recognition is **successful**, the system skips the next `N` modules (in this case, `N = 2`) and proceeds to the subsequent module. This allows the user to log in without entering a password.
-- If face recognition **fails**, the system moves to the next module, which is `@include common-auth`. This prompts the user to enter their password.
-To determine the value of `N`, we count the number of modules above `pam_deny.so` in the `/etc/pam.d/common-auth` file. This ensures that the configuration aligns with the system's authentication flow. Please visit https://docs.oracle.com/cd/E19683-01/817-0365/pam-36/index.html for more details.
-
-### Handling Camera or Lighting Issues
-
-If your RGB camera is not ready or the lighting conditions are poor, you can adjust the following options:
-
-- `retries`: Sets the maximum number of authentication attempts. The default is 10.
-- `retry_delay`: Specifies the delay (in milliseconds) between each retry attempt. The default is 200 milliseconds.
-
-For example, to increase the maximum retries to 20 and set the delay between retries to 200 milliseconds, modify the line as follows:
+By default, the FaceID login module is disabled. To enable it, execute:
 
 ```sh
-auth [success=2 default=ignore] libfacepass_pam.so retries=20 retry_delay=200
+sudo facepass enable
 ```
+
+After enabling, suspend your current session and log in again to test the FaceID functionality. If you wish to disable the FaceID login module, you can do so by running:
+
+```sh
+sudo facepass disable
+```
+
+### Configuration
+
+In some cases, the RGB camera may not be ready, or poor lighting conditions can cause the FaceID login to fail. To mitigate this, you can adjust the PAM configuration. By default, Facepass will retry up to **10 times** before giving up, with a small delay of **200 milliseconds** between attempts.
+
+Additionally, Facepass includes an optional **face anti-spoofing** feature. This feature is disabled by default because weaker cameras may lack the resolution required for accurate detection.
+
+To customize these settings, use the following command:
+
+```sh
+facepass config --retries=<number_of_retries> --delay=<delay_in_milliseconds> --anti-spoofing=<true_or_false>
+```
+
+For example, to set the retries to 5, the delay to 300 milliseconds, and enable anti-spoofing, you would run:
+
+```sh
+facepass config --retries=5 --delay=300 --anti-spoofing=true
+```
+
+**Note**: Ensure the FaceID login module is enabled before using the `facepass config` command.
 
 ## How to Contribute
 
@@ -80,7 +85,6 @@ We welcome contributions from the community! Here’s how you can help:
 
 We are actively working on the following features and improvements:
 
-- [ ] **GUI for Face Management**: A user-friendly interface to manage multiple faces.
 - [ ] **Extended Login Support**: Apply face recognition to other login methods (e.g., `sudo`, `su`). See [issue #5](https://github.com/TickLabVN/facepass/issues/5).
 - [x] **Face Anti-Spoofing**: Enhance security with anti-spoofing measures. This feature will be optional for users with weaker cameras.
 - [ ] **IR Camera Support**: Expand compatibility to include infrared cameras. Currently, only RGB cameras are supported.

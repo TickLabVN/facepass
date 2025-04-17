@@ -27,7 +27,7 @@ int capture_face(cv::Mat &frame)
         // wait for enter key to be pressed to stop
         const int key = cv::waitKey(10);
         // if the user presses 'Enter' or 'Esc', exit the loop
-        if (key == 27 || key == 32)
+        if (key == 13 || key == 27)
             break;
     }
     return 0;
