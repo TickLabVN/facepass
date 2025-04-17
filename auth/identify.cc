@@ -7,9 +7,9 @@ namespace uuid
     static std::uniform_int_distribution<> dis(0, 15);
     static std::uniform_int_distribution<> dis2(8, 11);
 
-    std::string v4()
+    string v4()
     {
-        std::stringstream ss;
+        stringstream ss;
         ss << std::hex;
 
         for (int i = 0; i < 8; i++)
@@ -38,12 +38,12 @@ namespace uuid
 
 namespace
 {
-    bool save_failed_face(const std::string &username, const cv::Mat &face)
+    bool save_failed_face(const string &username, const cv::Mat &face, const string &reason)
     {
-        std::string failedFacePath = debug_path(username) + "/" + uuid::v4() + ".jpg";
+        string failedFacePath = debug_path(username) + "/" + reason + "." + uuid::v4() + ".jpg";
         if (!cv::imwrite(failedFacePath, face))
         {
-            std::cerr << "ERROR: Could not save failed face to " << failedFacePath << std::endl;
+            cerr << "ERROR: Could not save failed face to " << failedFacePath << endl;
             return false;
         }
         return true;
@@ -54,7 +54,7 @@ namespace
         SpoofResult spoofCheck = faceAs.inference(face);
         if (spoofCheck.spoof)
         {
-            std::cerr << "ERROR: Spoof detected, score: " << spoofCheck.score << std::endl;
+            cerr << "ERROR: Spoof detected, score: " << spoofCheck.score << endl;
             return false;
         }
         return true;
@@ -65,20 +65,20 @@ namespace
     }
 }
 
-int scan_face(const std::string &username, int8_t retries, const int gap, bool anti_spoofing)
+int scan_face(const string &username, int8_t retries, const int gap, bool anti_spoofing)
 {
-    cv::VideoCapture camera(0, cv::CAP_V4L2); // in Linux check $ ls /dev/video0
+    cv::VideoCapture camera(0, cv::CAP_V4L2);
     if (!camera.isOpened())
     {
-        std::cerr << "ERROR: Could not open camera" << std::endl;
+        cerr << "ERROR: Could not open camera" << endl;
         return PAM_AUTH_ERR;
     }
 
-    std::string userFacePath = user_face_path(username);
+    string userFacePath = user_face_path(username);
     cv::Mat preparedFace = cv::imread(userFacePath);
     if (preparedFace.empty())
     {
-        std::cerr << "ERROR: Face not register for user " << username << std::endl;
+        cerr << "ERROR: Face not register for user " << username << endl;
         return PAM_AUTH_ERR;
     }
 
@@ -98,14 +98,14 @@ int scan_face(const std::string &username, int8_t retries, const int gap, bool a
         camera >> loginFace;
         if (loginFace.empty())
         {
-            std::cerr << "ERROR: Could not read frame" << std::endl;
+            cerr << "ERROR: Could not read frame" << endl;
             break;
         }
 
         std::vector<Detection> detectedImages = faceDetector.inference(loginFace);
         if (detectedImages.empty())
         {
-            std::cerr << "ERROR: No face detected" << std::endl;
+            cerr << "ERROR: No face detected" << endl;
             sleep_for(gap);
             continue;
         }
@@ -113,7 +113,7 @@ int scan_face(const std::string &username, int8_t retries, const int gap, bool a
         cv::Mat face = detectedImages[0].image;
         if (anti_spoofing && !process_anti_spoofing(*faceAs, face))
         {
-            std::this_thread::sleep_for(std::chrono::milliseconds(gap));
+            save_failed_face(username, face, "spoof");
             sleep_for(gap);
             continue;
         }
@@ -125,7 +125,7 @@ int scan_face(const std::string &username, int8_t retries, const int gap, bool a
             break;
         }
 
-        save_failed_face(username, face);
+        save_failed_face(username, face, "not similar");
         sleep_for(gap);
     }
 
