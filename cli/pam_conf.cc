@@ -1,5 +1,13 @@
 #include "pam_conf.h"
 
+void trim_string(string &str)
+{
+    // Trim leading whitespace
+    str.erase(0, str.find_first_not_of(" \t"));
+    // Trim trailing whitespace
+    str.erase(str.find_last_not_of(" \t") + 1);
+}
+
 int count_module_above_pam_deny()
 {
     ifstream file("/etc/pam.d/common-auth");
@@ -29,14 +37,6 @@ int count_module_above_pam_deny()
 
     file.close();
     return count;
-}
-
-void trim_string(string &str)
-{
-    // Trim leading whitespace
-    str.erase(0, str.find_first_not_of(" \t"));
-    // Trim trailing whitespace
-    str.erase(str.find_last_not_of(" \t") + 1);
 }
 
 string get_pam_config_file_path(string module)
