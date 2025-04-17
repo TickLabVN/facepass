@@ -3,6 +3,7 @@
 
 #include <string>
 #include <CLI/App.hpp>
+#include "face.h"
 
 void setup_unregister_command(CLI::App &app, const std::string &username);
 

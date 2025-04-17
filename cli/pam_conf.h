@@ -5,6 +5,7 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <sstream>
 #include <sys/stat.h>
 
 using namespace std;
@@ -18,6 +19,7 @@ struct PAMConfig
 
 bool enable_auth(const string &, const PAMConfig &);
 bool disable_auth(const string &);
+PAMConfig* load_current_config(const string &);
 bool is_auth_enabled(const string &);
 
 #endif

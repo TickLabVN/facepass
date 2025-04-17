@@ -38,6 +38,8 @@ cv::Mat detect_face(const string &username, cv::Mat &frame)
     const string model = model_path(username, FACE_DETECTION);
     FaceDetection detector(model);
     std::vector<Detection> detectedImages = detector.inference(frame);
+    if (detectedImages.empty())
+        return cv::Mat();
     cv::Mat face = detectedImages[0].image;
     return face;
 }
@@ -54,6 +56,11 @@ int add_face(const string &username)
         return 1;
     }
     cv::Mat face = detect_face(username, screenshot);
+    if (face.empty())
+    {
+        printf("Failed to detect face.\n");
+        return 1;
+    }
     result = cv::imwrite(faceImagePath, face);
     if (result == 0)
     {
