@@ -19,6 +19,7 @@ int main(int argc, char **argv)
         fprintf(stderr, "Failed to get the current username.\n");
         return 1;
     }
+    setup_config(username);
 
     setup_register_command(app, username);
     setup_unregister_command(app, username);
