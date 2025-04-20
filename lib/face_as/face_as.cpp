@@ -7,9 +7,9 @@ int torch_argmax(const torch::Tensor& input) {
 };
 
 torch::Tensor face_as_to_tensor(const cv::Mat& img) {
-	torch::Tensor img_tensor = torch::from_blob(img.data, {img.rows, img.cols, 3}, torch::kUInt8);
-	img_tensor = img_tensor / 255.0;
-	img_tensor = img_tensor.permute({2, 0, 1}).to(torch::kFloat32);
+	torch::Tensor img_tensor = torch::from_blob(img.data, {img.rows, img.cols, 3}, torch::kByte);
+	img_tensor = img_tensor.to(torch::kFloat32).div(255);
+	img_tensor = img_tensor.permute({2, 0, 1});
 	return img_tensor;
 };
 
@@ -19,7 +19,7 @@ torch::Tensor face_as_normalize(const torch::Tensor& input, const std::vector<fl
 
     torch::Tensor normalize = input.clone();
     for (size_t i = 0; i < mean.size(); ++i) {
-        normalize[i] = (normalize[i] - mean[i]) / std[i];
+        normalize[i] = normalize[i].sub(mean[i]).div(std[i]);
     }
     return normalize.unsqueeze(0);
 }
