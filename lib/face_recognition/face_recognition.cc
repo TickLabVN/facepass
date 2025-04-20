@@ -43,7 +43,7 @@ torch::Tensor normalize(const torch::Tensor& input, const std::vector<float>& me
 
     torch::Tensor norm1lized = input.clone();
     for (size_t i = 0; i < mean.size(); ++i) {
-        normalize[i] = normalize[i].sub(mean[i]).div(std[i]);
+        norm1lized[i] = norm1lized[i].sub(mean[i]).div(std[i]);
     }
     return norm1lized.unsqueeze(0);
 }
