@@ -35,23 +35,6 @@ string debug_path(const string &username)
     return string("/home/") + username + "/.config/facepass/debugs";
 }
 
-vector<string> get_usernames()
-{
-    vector<string> usernames;
-    DIR *dir;
-    struct dirent *ent;
-    if ((dir = opendir("/home")) != NULL)
-    {
-        while ((ent = readdir(dir)) != NULL)
-            if (ent->d_type == DT_DIR && ent->d_name[0] != '.')
-                usernames.push_back(ent->d_name);
-        closedir(dir);
-    }
-    else
-        perror("Could not open directory");
-    return usernames;
-}
-
 string model_path(const string &username, const ModelType &modelType)
 {
     string modelTypeStr;
@@ -64,24 +47,18 @@ string model_path(const string &username, const ModelType &modelType)
         modelTypeStr = "edgeface_s_gamma_05_ts.pt";
         break;
     case FACE_ANTI_SPOOFING:
-        modelTypeStr = "mobilenet_v3_small.onnx";
+        modelTypeStr = "mobilenetv3_antispoof_ts.pt";
         break;
     }
-    return string("/home/") + username + "/.config/facepass/models/" + modelTypeStr;
+    return string("/etc/xdg/facepass/models/") + modelTypeStr;
 }
 
 int setup_config(const string &username)
 {
     const string configDir = string(getenv("HOME")) + "/.config/facepass";
-    if (mkdir_p(configDir) != 0)
-        return 1;
-    string faceDir = configDir + "/faces";
-    string modelDir = configDir + "/models";
-    string debugDir = configDir + "/debugs";
-
+    const string faceDir = configDir + "/faces";
     if (mkdir_p(faceDir) != 0)
         return 1;
-    if (mkdir_p(modelDir) != 0)
-        return 1;
+    string debugDir = configDir + "/debugs";
     return mkdir_p(debugDir);
 }

@@ -1,4 +1,4 @@
-#include "add_face.h"
+#include "face.h"
 
 int capture_face(cv::Mat &frame)
 {
@@ -24,8 +24,10 @@ int capture_face(cv::Mat &frame)
         camera >> frame;
         // show the image on the window
         cv::imshow("Facepass", frame);
-        // wait (10ms) for esc key to be pressed to stop
-        if (cv::waitKey(10) == 27)
+        // wait for enter key to be pressed to stop
+        const int key = cv::waitKey(10);
+        // if the user presses 'Enter' or 'Esc', exit the loop
+        if (key == 13 || key == 27)
             break;
     }
     return 0;
@@ -36,6 +38,8 @@ cv::Mat detect_face(const string &username, cv::Mat &frame)
     const string model = model_path(username, FACE_DETECTION);
     FaceDetection detector(model);
     std::vector<Detection> detectedImages = detector.inference(frame);
+    if (detectedImages.empty())
+        return cv::Mat();
     cv::Mat face = detectedImages[0].image;
     return face;
 }
@@ -52,12 +56,22 @@ int add_face(const string &username)
         return 1;
     }
     cv::Mat face = detect_face(username, screenshot);
+    if (face.empty())
+    {
+        printf("Failed to detect face.\n");
+        return 1;
+    }
     result = cv::imwrite(faceImagePath, face);
     if (result == 0)
     {
+        printf("Face size dimension %d", face.size.dims());
         printf("Failed to save face.\n");
         return 1;
     }
 
     return 0;
+}
+
+int remove_face(const string &user) {
+    return remove(user_face_path(user).c_str()) != 0;
 }

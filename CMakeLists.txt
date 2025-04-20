@@ -24,9 +24,11 @@ find_package(CLI11 CONFIG REQUIRED)
 add_subdirectory(lib/config)
 add_subdirectory(lib/face_detection)
 add_subdirectory(lib/face_recognition)
+add_subdirectory(lib/face_as)
 
 set(FaceDetection_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/lib/face_detection)
 set(FaceRecognition_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/lib/face_recognition)
+set(FaceAntiSpoof_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/lib/face_as)
 set(FaceConfig_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/lib/config)
 
 add_subdirectory(cli)
@@ -35,10 +37,14 @@ add_subdirectory(test/face_engine)
 add_subdirectory(test/pam)
 
 install(
-    TARGETS ${PROJECT_NAME} facepass_pam facepass_cfg facepass_det facepass_reg 
+    TARGETS ${PROJECT_NAME} facepass_cfg facepass_det facepass_reg 
     COMPONENT applications
     RUNTIME DESTINATION "/usr/bin"
     LIBRARY DESTINATION "/usr/lib"
+)
+install(
+    TARGETS facepass_pam
+    LIBRARY DESTINATION "/lib/security"
 )
 
 # Install libtorch libraries
@@ -48,6 +54,11 @@ install(
     FILES_MATCHING PATTERN "*.so"
 )
 
+install(
+    FILES public/edgeface_s_gamma_05_ts.pt public/yolov11n-face.torchscript
+    DESTINATION /etc/xdg/${PROJECT_NAME}/models
+)
+
 SET(CPACK_GENERATOR "DEB")
 SET(CPACK_PACKAGE_NAME ${PROJECT_NAME})
 SET(CPACK_PACKAGE_VERSION ${PROJECT_VERSION})
@@ -55,5 +66,6 @@ SET(CPACK_DEBIAN_PACKAGE_ARCHITECTURE "amd64")
 SET(CPACK_DEBIAN_PACKAGE_DESCRIPTION "Facepass is a face recognition authentication system.")
 SET(CPACK_DEBIAN_PACKAGE_DEPENDS "libpam0g-dev, libcli11-dev, libopencv-dev")
 SET(CPACK_DEBIAN_PACKAGE_MAINTAINER "Nguyen Phuc Vinh & Tran Trung Thai") #required
+# SET(CPACK_DEBIAN_PACKAGE_CONTROL_EXTRA "${CMAKE_CURRENT_SOURCE_DIR}/scripts/postinst")
 
 INCLUDE(CPack)
