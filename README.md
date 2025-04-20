@@ -11,9 +11,11 @@ While there is an existing FaceID login module for Linux called [Howdy](https://
 ### Using Debian Package
 
 ```sh
-# Download the Debian package
-# Replace <version> with the actual version number you want to download
-wget https://github.com/TickLabVN/facepass/releases/download/<version_tag>/facepass-<version_tag>-ubuntu-22.04.deb -O facepass.deb
+VERSION=$(curl -s https://api.github.com/repos/TickLabVN/facepass/releases/latest | jq -r .tag_name)
+# Detect the Ubuntu version dynamically
+UBUNTU_VERSION=$(lsb_release -rs)
+wget https://github.com/TickLabVN/facepass/releases/download/$VERSION/facepass-$VERSION-ubuntu-$UBUNTU_VERSION.deb -O facepass.deb
+```
 
 # Install the package
 sudo dpkg -i facepass.deb
