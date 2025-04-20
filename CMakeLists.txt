@@ -55,7 +55,7 @@ install(
 )
 
 install(
-    FILES public/edgeface_s_gamma_05_ts.pt public/yolov11n-face.torchscript
+    FILES public/edgeface_s_gamma_05_ts.pt public/yolov11n-face.torchscript public/mobilenetv3_antispoof_ts.pt
     DESTINATION /etc/xdg/${PROJECT_NAME}/models
 )
 
