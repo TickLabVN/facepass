@@ -52,19 +52,17 @@ After enabling, suspend your current session and log in again to test the FaceID
 sudo facepass disable
 ```
 
-### Enabling Face Auth For Other Applicaitons
+## Enabling Face Auth For Other Applicaitons
 
-In order to enable face authentication for other applications you will 
-need to update /etc/pam.d/common-auth where you will edit your 
-common-auth,sudo, login configs configs to look like this. Additional 
-documentation regarding pam.d changes can be found at 
+In order to enable face authentication for other applications you will need to update /etc/pam.d/common-auth where you will edit your common-auth,sudo, login configs configs to look like this. Additional documentation regarding pam.d changes can be found at 
 https://wiki.archlinux.org/title/PAM 
 
+```sh
 # here are the per-package modules (the "Primary" block)
 auth    sufficient                      /lib/security/libfacepass_pam.so #<------- add this line #
 auth    [success=2 default=ignore]      pam_unix.so nullok
 auth    [success=1 default=ignore]      pam_sss.so use_first_pass
-
+```
 
 
 
