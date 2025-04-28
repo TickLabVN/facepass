@@ -37,7 +37,7 @@ add_subdirectory(test/face_engine)
 add_subdirectory(test/pam)
 
 install(
-    TARGETS ${PROJECT_NAME} facepass_cfg facepass_det facepass_reg 
+    TARGETS ${PROJECT_NAME} facepass_cfg facepass_det facepass_reg facepass_as
     COMPONENT applications
     RUNTIME DESTINATION "/usr/bin"
     LIBRARY DESTINATION "/usr/lib"
@@ -55,7 +55,7 @@ install(
 )
 
 install(
-    FILES public/edgeface_s_gamma_05_ts.pt public/yolov11n-face.torchscript
+    FILES public/edgeface_s_gamma_05_ts.pt public/yolov11n-face.torchscript public/mobilenetv3_antispoof_ts.pt
     DESTINATION /etc/xdg/${PROJECT_NAME}/models
 )
 
