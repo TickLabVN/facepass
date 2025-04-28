@@ -44,4 +44,29 @@ private:
 };
 
 
+class FaceAntiSpoofing2 {
+public:
+    FaceAntiSpoofing2(
+        const std::string &ckpt1,
+        const std::string &ckpt2,
+        const cv::Size &imgsz={80, 80},
+        const bool &cuda=false,
+        const float threshold=0.45
+    );
+
+    void load_model(torch::jit::script::Module& model, const std::string& ckpt2);
+    SpoofResult inference(cv::Mat& image);
+    torch::Tensor preprocess(cv::Mat& image);
+    
+private:
+    std::string ckpt1;
+    std::string ckpt2;
+    bool  cuda;
+    float threshold;
+    cv::Size imgsz;
+    torch::jit::script::Module model1;
+    torch::jit::script::Module model2;
+    torch::Device device = torch::Device(torch::kCPU);
+};
+
 #endif // FACE_AS_H
