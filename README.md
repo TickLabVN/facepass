@@ -1,10 +1,18 @@
 # Facepass
+<p align="center">
+    <img src="https://public-r2.ticklab.site/media/tc1oN21KXhMM1B2jOecRhk=" alt="Facepass Logo" width="120" />
+</p>
 
-A FaceID login module for Linux.
+<h2 align="center">Facepass</h2>
+<p align="center"><b>Modern FaceID login for Linux</b></p>
+<p align="center">A fast, secure, and privacy-focused facial recognition module for Linux desktops.</p>
 
-## Why Facepass?
+---
 
-While there is an existing FaceID login module for Linux called [Howdy](https://github.com/boltgolt/howdy), it is no longer actively maintained (last release: Sep 2, 2020). Many of its dependencies are deprecated, and it lacks spoof detection capabilities. To address these issues, we—@npvinh and @thaitran24—created Facepass, a modern and secure alternative.
+> **Why Facepass?**  
+> While there is an existing FaceID login module for Linux called [Howdy](https://github.com/boltgolt/howdy), it is no longer actively maintained (last release: Sep 2, 2020). Many of its dependencies are deprecated, and it lacks spoof detection capabilities.  
+>  
+> To address these issues, we—[@npvinh](https://github.com/npvinh) and [@thaitran24](https://github.com/thaitran24)—created Facepass: a modern, secure, and actively maintained alternative.
 
 ## Installation
 
