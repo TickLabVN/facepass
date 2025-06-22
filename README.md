@@ -1,6 +1,19 @@
 # Facepass
+
 <p align="center">
     <img src="https://public-r2.ticklab.site/media/tc1oN21KXhMM1B2jOecRhk=" alt="Facepass Logo" width="120" />
+</p>
+
+<p align="center">
+    <a href="https://github.com/TickLabVN/facepass/releases/latest">
+        <img src="https://img.shields.io/github/v/release/TickLabVN/facepass?label=Last%20Release&style=flat-square" alt="Latest release" />
+    </a>
+    <a href="https://github.com/TickLabVN/facepass/stargazers">
+        <img src="https://img.shields.io/github/stars/TickLabVN/facepass?style=flat-square" alt="GitHub stars" />
+    </a>
+    <a href="https://github.com/TickLabVN/facepass/issues">
+        <img src="https://img.shields.io/github/issues/TickLabVN/facepass?style=flat-square" alt="Open Issues" />
+    </a>
 </p>
 
 <h2 align="center">Facepass</h2>
