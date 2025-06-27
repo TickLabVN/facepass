@@ -32,7 +32,7 @@
 ### Using Debian Package
 
 ```sh
-VERSION=ec
+VERSION=$(curl -s https://api.github.com/repos/TickLabVN/facepass/releases/latest | jq -r .tag_name)
 UBUNTU_VERSION=$(lsb_release -rs)
 wget https://github.com/TickLabVN/facepass/releases/download/$VERSION/facepass-$VERSION-ubuntu-$UBUNTU_VERSION.deb -O facepass.deb
 
